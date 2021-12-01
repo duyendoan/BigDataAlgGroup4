@@ -19,7 +19,7 @@ import timeit
 
 
 # start = timeit.default_timer()
-movie_df = dd.read_csv('movies_metadata.csv',usecols=['title', 'id', 'imdb_id', 'overview'], dtype={'id':'object'})
+movie_df = dd.read_csv('movies_metadata.csv',usecols=['title', 'id', 'imdb_id'], dtype={'id':'object'})
 rating_df = dd.read_csv('ratings_small.csv')
 links_df = dd.read_csv('links_small.csv', dtype={'imdb_id':'object', 'tmdbId':'float64'})
 # stop = timeit.default_timer()
@@ -34,4 +34,15 @@ all_ratings_df = rating_df.merge(links_df, on='movieId')
 combined_df = movie_df.merge(all_ratings_df, left_on='id', right_on='tmdbId')
 
 ######################################################
-print(combined_df.head())
+
+# BUILD 2-D MATRIX: USER ID AS ROWS, MOVIE ID AS COLUMNS, RATING AS VALUE
+start = timeit.default_timer()
+
+combined_df = combined_df.astype({'movieId': 'float'})
+data_categorized = combined_df.categorize(columns="movieId")
+df_table = dd.pivot_table(data_categorized, index='userId', columns='movieId', values='rating', aggfunc='mean')
+print(df_table)
+
+stop = timeit.default_timer()
+print('Time: ', stop - start) #takes only 3.8449836s - not too bad
+
