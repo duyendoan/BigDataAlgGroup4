@@ -31,7 +31,7 @@ r_ui = args.TrueRating
 filename = args.filename
 
 # read the ratings file, which will be used for collaborative filtering model development
-rating = pd.read_csv('../data/ratings_small.csv',
+rating = pd.read_csv('https://storage.googleapis.com/group-4-bucket/data/ratings.csv',
                      dtype={'rating':'float32','userId':'int32','movieId':'int32'})
 print('========= Reading the Rating DataFrame =========')
 print (rating.head())
@@ -40,7 +40,7 @@ print (rating.head())
 ## rating_mat = rating.pivot_table('rating',index='userId',columns='movieId') ## this code cause overload
 
 # read the combined movie profile, which we used to look for the movie name given a movie ID
-combined = pd.read_csv('../data/combined_info.csv',index_col=0)
+combined = pd.read_csv('https://storage.googleapis.com/group-4-bucket/data/combined_info.csv',index_col=0)
 print('========= Reading the movie profile  =========')
 print (combined.head())
 
@@ -57,6 +57,7 @@ pardir = os.path.abspath(os.path.join(os.path.dirname('collab_model_SVD.py'),os.
 if not os.path.exists(os.path.join(pardir, 'model')):
     os.makedirs(os.path.join(pardir, 'model'))
     
+if not os.path.exists(os.path.join(pardir, 'model',filename)):
     gs = GridSearchCV(SVD, param_grid, measures=["rmse","mae"], cv=3)
 
     print('========= Training model using SVD algorithm  =========')
