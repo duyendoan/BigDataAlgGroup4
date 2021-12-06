@@ -21,7 +21,7 @@ python content_based_gc.py -tl MovieTitle -lsh n
 python content_based_gc.py -tl MovieTitle -lsh y -st cosine   
 ```  
 
-### 5. to run collaborative filtering, call **collab_model_SVD_gc.py** and specify parameters: -uid, -iid, r_ui, -fn   
+### 5. to run collaborative filtering, call **collab_model_SVD_gc.py** and specify parameters: -uid, -iid, r_ui, -fn. e.g.   
 
 ```  
 python collab_model_SVD_gc.py -uid 1 -iid 31 r_ui 2.5 -fn model_filename  
