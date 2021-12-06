@@ -48,8 +48,7 @@ combined = pd.read_csv('https://storage.googleapis.com/group-4-bucket/data/combi
 print('========= Reading the movie profile  =========')
 print (combined.head())
 
-reader = Reader()
-data = Dataset.load_from_df(rating[['userId', 'movieId', 'rating']], reader)
+
 
 param_grid = {
     "n_epochs": [5, 10],
@@ -63,6 +62,9 @@ if not os.path.exists(os.path.join(pardir, 'model')):
     
 if not os.path.exists(os.path.join(pardir, 'model',filename)):
     ##gs = GridSearchCV(SVD, param_grid, measures=["rmse","mae"], cv=3)
+    reader = Reader()
+    data = Dataset.load_from_df(rating[['userId', 'movieId', 'rating']], reader)
+    
     alg = SVD(n_epochs = 10, lr_all = 0.005, reg_all = 0.4)
 
     print('========= Training model using SVD algorithm  =========')
