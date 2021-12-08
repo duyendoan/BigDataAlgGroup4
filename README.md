@@ -15,7 +15,7 @@ conda install --file requirements.txt
 ```  
 
 ### 4. setup of the folders for scripts and data  
-![image] https://github.com/duyendoan/BigDataAlgGroup4/blob/main/files/folders_setup.png  
+![image](https://github.com/duyendoan/BigDataAlgGroup4/blob/main/files/folders_setup.png)  
 scripts should be under the `code` folder  
 datasets should be under the `data` folder  
 models should be stored under the `model` folder
