@@ -2,7 +2,7 @@ import pandas as pd
 import os
 import numpy as np
 
-from sklearn.metrics.pairwise import linear_kernel
+from sklearn.metrics.pairwise import linear_kernel, cosine_similarity
 
 
 # Function that takes in movie title as input and outputs most similar movies
@@ -17,7 +17,7 @@ def get_recommendations_all(title,feature_df,indices):
     featureMatrix = np.array(feature_df)
 
     # Compute the pairwise cosine similarity matrix
-    cosine_sim = linear_kernel(featureMatrix, featureMatrix)
+    cosine_sim = cosine_similarity(featureMatrix, featureMatrix)
     cosine_sim = pd.DataFrame(cosine_sim,index=feature_df.index,columns=feature_df.index)
     dataset = 'https://storage.googleapis.com/group-4-bucket/data/combined_info.csv'
     combined = pd.read_csv(dataset,index_col=0)
